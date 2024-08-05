@@ -1,17 +1,14 @@
 #ifndef UTILITIES_H
 #define UTILITIES_H
 
+#include <iostream>
+using namespace std;
+
 class Utilities
 {
-	private:
-		string title;
-		string consoleColor;
-
-
     public:
-		Utilities(string title, string consoleColor);
-		void setTitle() const;
-		void setConsoleColor() const;
+		Utilities();
+		void setTextColor(string color);
 };
 
 #endif
