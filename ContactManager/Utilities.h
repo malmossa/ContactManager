@@ -9,6 +9,7 @@ class Utilities
     public:
 		Utilities();
 		void setTextColor(string color);
+
 };
 
 #endif
