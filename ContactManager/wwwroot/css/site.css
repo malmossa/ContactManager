@@ -166,6 +166,10 @@ main {
     font-size: 1rem;
 }
 
+.bi-heart {
+    color: red;
+}
+
 .socialicons {
     color: var(--cf-primaryColorDark);
     opacity: .9;
