@@ -3,13 +3,13 @@
 @{
     ViewData["Title"] = "Create";
 }
-<h1>EDIT CONTACT</h1>
+<h1>CREATE CONTACT</h1>
 <div class="p-3 border-2 shadow-lg bg-light">
     <div class="row">
         <form asp-action="Create" asp-controller="Contacts" enctype="multipart/form-data">
             <div class="row g-3 p-2">
                 <div class="col-12 col-lg-4">
-                    <div class="square-img-container mb-2">
+                    <div class="square-img-container">
                         <img class="square-img" src="/img/DefaultContactImage.png">
                     </div>
                     <div>
@@ -57,7 +57,7 @@
                         </div>
                         <div class="col-12 col-lg-4 mt-2">
                             <label asp-for="State" class="control-label"></label>
-                            <select asp-for="State" class="form-control"></select>
+                            <select asp-for="State" class="form-control" asp-items="ViewBag.StatesList"></select>
                             <span asp-validation-for="State" class="text-danger"></span>
                         </div>
                         <div class="col-12 col-lg-2 mt-2">
