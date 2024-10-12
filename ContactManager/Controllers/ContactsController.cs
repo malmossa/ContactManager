@@ -1,13 +1,12 @@
 ﻿using ContactManager.Data;
+using ContactManager.Enums;
 using ContactManager.Models;
+using ContactManager.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using ContactManager.Enums;
-using Microsoft.AspNetCore.Identity;
-using ContactManager.Services.Interfaces;
-using ContactManager.Services;
 
 namespace ContactManager.Controllers
 {
@@ -16,14 +15,17 @@ namespace ContactManager.Controllers
         private readonly ApplicationDbContext _context;
         private readonly UserManager<AppUser> _userManager;
         private readonly IImageService _imageService;
+        private readonly IAddressBookService _addressBookService;
 
         public ContactsController(ApplicationDbContext context,
                                   UserManager<AppUser> userManager,
-                                  IImageService imageService)
+                                  IImageService imageService,
+                                  IAddressBookService addressBookService)
         {
             _context = context;
             _userManager = userManager;
             _imageService = imageService;
+            _addressBookService = addressBookService;
         }
 
         // GET: Contacts
@@ -56,10 +58,12 @@ namespace ContactManager.Controllers
 
         // GET: Contacts/Create
         [Authorize]
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            ViewData["AppUserId"] = new SelectList(_context.Users, "Id", "Id");
+            string appUserId = _userManager.GetUserId(User);
             ViewData["StatesList"] = new SelectList(Enum.GetValues(typeof(States)).Cast<States>().ToList());
+            ViewData["CategoryList"] = new MultiSelectList(await _addressBookService.GetUserCategoriesAsync(appUserId), "Id", "Name");
+
             return View();
         }
 
