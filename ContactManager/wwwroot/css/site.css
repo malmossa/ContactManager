@@ -130,7 +130,7 @@ main {
     border-color: var(--cf-light-color);
     border-style: solid;
     border-width: 3px;
-    background-color: var(--cf-secondaryColor);
+    background-color: var(--cf-primaryColorLight);
     padding-top: 2rem;
     padding-bottom: 2rem;
     padding-left: 1rem;

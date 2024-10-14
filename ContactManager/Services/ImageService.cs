@@ -13,7 +13,7 @@ namespace ContactManager.Services
             try
             {
                 string imageBase64Data = Convert.ToBase64String(fileData);
-                return string.Format($"data:{extension}");
+                return $"data:image/{extension};base64,{imageBase64Data}";
             }
             catch (Exception)
             {
