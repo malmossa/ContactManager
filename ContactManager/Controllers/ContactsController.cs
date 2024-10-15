@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using ContactManager.Controllers;
+using ContactManager.Models;
 
 namespace ContactManager.Controllers
 {
@@ -32,7 +34,16 @@ namespace ContactManager.Controllers
         [Authorize]
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Contacts.Include(c => c.AppUser);
+            var contacts = new List<Contact>();
+            string appUserId = _userManager.GetUserId(User);
+
+            // Return the userID and its assocuated contacts and categories
+            AppUser appUser = _context.Users
+                                      .Include(c => c.Contacts)
+                                      .ThenInclude(c => c.Categories)
+                                      .FirstOrDefault(u => u.Id == appUser);
+
+
             return View(await applicationDbContext.ToListAsync());
         }
 
